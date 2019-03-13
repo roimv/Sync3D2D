@@ -20,42 +20,41 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://js.arcgis.com/4.10/esri/css/main.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://js.arcgis.com/4.10/"></script>
 
 
 </head>
 
 <body>
+  <div id="view1Div" style="float: left; width: 50%; height: 100%;"></div>
+  <div id="view2Div" style="float: left; width: 50%; height: 100%;"></div>
+  <div class="barraPrincipal">
+    <img class="logoAyuntamiento" src="images/logoCalp.png"></img>
+    <p class="tituloPrincipal">DEPARTAMENTO DE URBANISMO - VISTAS 3D/2D</p>
+  </div>
 
-    <div id="view1Div" style="float: left; width: 50%; height: 100%;"></div>
-    <div id="view2Div" style="float: left; width: 50%; height: 100%;"></div>
-    <div class="barraPrincipal">
-
-
+  <!-- Este div es para crear el contenedor donde irán los iconos que filtren -->
+  <div class="contenedorBotones">
+    <div id="botonAccionOcio" class="botonOcio">
+      <div class="w3-button w3-circle w3-khaki"><i class="fas fa-glass-cheers" style="font-size:20px;color:rgb(122, 153, 172);"></i></div>
     </div>
+    <div id="botonAccionTurismos" class="botonTurismos">
+      <div class="w3-button w3-circle w3-khaki"><i class="fas fa-car" style="font-size:22px;color:rgb(122, 153, 172);"></i></div>
+    </div>
+    <div id="botonAccionServicios" class="botonServicios">
+      <div class="w3-button w3-circle w3-khaki"><i class="fab fa-speakap" style="font-size:26px;color:rgb(122, 153, 172);"></i></div>
+    </div>
+    <div id="botonAccionAlojamiento" class="botonAlojamiento">
+      <div class="w3-button w3-circle w3-khaki"><i class="material-icons" style="font-size:24px;color:rgb(122, 153, 172);">hotel</i></div>
+    </div>
+    <div id="botonAccionRestaurantes" class="botonRestaurantes">
+      <div class="w3-button w3-circle w3-khaki"><i class="material-icons" style="font-size:24px;color:rgb(122, 153, 172);">restaurant</i></div>
+    </div>
+  </div>
 
-    <!-- Este div es para crear el contenedor donde irán los iconos que filtren -->
-    <div class="contenedorBotones">
-          <div id="botonAccionOcio" class="botonOcio">
-            <div class="w3-button w3-circle w3-khaki">Ocio</div>
-          </div>
-
-          <div id="botonAccionTurismos" class="botonTurismos">
-            <div class="w3-button w3-circle w3-khaki">Turismos</div>
-          </div>
-
-          <div id="botonAccionServicios" class="botonServicios">
-            <div class="w3-button w3-circle w3-khaki">Servicios</div>
-          </div>
-
-          <div id="botonAccionAlojamiento" class="botonAlojamiento">
-            <div class="w3-button w3-circle w3-khaki">Alojamiento</div>
-          </div>
-
-          <div id="botonAccionRestaurantes" class="botonRestaurantes">
-            <div class="w3-button w3-circle w3-khaki">Restaurantes</div>
-          </div>
-      </div>
+  <div class="contenedorleyenda"></div>
 
   <script>
     require([
@@ -139,13 +138,10 @@
         };
 
 
-        // var legend = new Legend({
-        //     view: view2,
-        //     layerInfos: [{
-        //       layer: ,
-        //       title: "Leyenda"
-        //     }]
-        //   });
+        var leyenda = new Legend({
+          view: view2
+        });
+        view2.ui.add(leyenda, "bottom-right");
 
       });
 
