@@ -3,6 +3,30 @@
       left:0px;
 
 }
+.esri-icon-plus:before{
+      color:rgb(255, 215, 0);
+}
+
+.esri-icon-minus:before{
+      color:rgb(255, 215, 0);
+}
+
+.esri-widget--button{
+      background-color:rgb(122, 153, 172);
+}
+
+.esri-icon-pan:before{
+      color:rgb(255, 215, 0);
+}
+
+.esri-icon-rotate:before{
+  color:rgb(255, 215, 0);
+}
+
+.esri-icon-compass:before{
+  color:rgb(255, 215, 0);
+}
+
 .barraPrincipal{
       position: absolute;
       background: rgb(122, 153, 172);

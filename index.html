@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>G4 - Visor Urbanismo</title>
+  <title>G4 -Ajuntament de Calp-Visor Urbanismo</title>
 
   <style>
     html,
@@ -38,23 +38,23 @@
   <!-- Este div es para crear el contenedor donde irán los iconos que filtren -->
   <div class="contenedorBotones">
     <div id="botonAccionOcio" class="botonOcio">
-      <div class="w3-button w3-circle w3-khaki"><i class="fas fa-glass-cheers" style="font-size:20px;color:rgb(122, 153, 172);"></i></div>
+      <div class="w3-button w3-circle w3-khaki" aria-label="Ocio" title="Ocio"><i class="fas fa-glass-cheers" style="font-size:20px;color:rgb(122, 153, 172);"></i></div>
     </div>
     <div id="botonAccionTurismos" class="botonTurismos">
-      <div class="w3-button w3-circle w3-khaki"><i class="fas fa-car" style="font-size:22px;color:rgb(122, 153, 172);"></i></div>
+      <div class="w3-button w3-circle w3-khaki" aria-label="Turismos" title="Turismos"><i class="fas fa-car" style="font-size:22px;color:rgb(122, 153, 172);"></i></div>
     </div>
     <div id="botonAccionServicios" class="botonServicios">
-      <div class="w3-button w3-circle w3-khaki"><i class="fab fa-speakap" style="font-size:26px;color:rgb(122, 153, 172);"></i></div>
+      <div class="w3-button w3-circle w3-khaki" aria-label="Servicios" title="Servicios"><i class="fab fa-speakap" style="font-size:26px;color:rgb(122, 153, 172);"></i></div>
     </div>
     <div id="botonAccionAlojamiento" class="botonAlojamiento">
-      <div class="w3-button w3-circle w3-khaki"><i class="material-icons" style="font-size:24px;color:rgb(122, 153, 172);">hotel</i></div>
+      <div class="w3-button w3-circle w3-khaki" aria-label="Alojamientos" title="Alojamientos"><i class="material-icons" style="font-size:24px;color:rgb(122, 153, 172);">hotel</i></div>
     </div>
     <div id="botonAccionRestaurantes" class="botonRestaurantes">
-      <div class="w3-button w3-circle w3-khaki"><i class="material-icons" style="font-size:24px;color:rgb(122, 153, 172);">restaurant</i></div>
+      <div class="w3-button w3-circle w3-khaki" aria-label="Restaurantes" title="Restaurantes"><i class="material-icons" style="font-size:24px;color:rgb(122, 153, 172);">restaurant</i></div>
     </div>
   </div>
 
-  <div class="contenedorleyenda"></div>
+  <div id="leyenda" class="contenedorleyenda"></div>
 
   <script>
     require([
