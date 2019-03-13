@@ -1,62 +1,63 @@
-.esri-ui-top-left{
-      top:38px;
-      left:0px;
-
-}
-.esri-icon-plus:before{
-      color:rgb(255, 215, 0);
+.esri-ui-top-left {
+  top: 38px;
+  left: 0px;
 }
 
-.esri-icon-minus:before{
-      color:rgb(255, 215, 0);
+.esri-icon-plus:before {
+  color: rgb(214, 220, 220);
 }
 
-.esri-widget--button{
-      background-color:rgb(122, 153, 172);
+.esri-icon-minus:before {
+  color: rgb(214, 220, 220);
 }
 
-.esri-icon-pan:before{
-      color:rgb(255, 215, 0);
+.esri-widget--button {
+  background-color: rgb(122, 153, 172);
 }
 
-.esri-icon-rotate:before{
-  color:rgb(255, 215, 0);
+.esri-icon-pan:before {
+  color: rgb(214, 220, 220);
 }
 
-.esri-icon-compass:before{
-  color:rgb(255, 215, 0);
+.esri-navigation-toggle__button:before{
+  border-color: rgba(255, 215, 0,0.2);
 }
 
-.barraPrincipal{
-      position: absolute;
-      background: rgb(122, 153, 172);
-      top:0;
-      width:100%;
-      height: 34px;
-      z-index: 2;
-      opacity: 0.7;
-
+.esri-icon-rotate:before {
+  color: rgb(214, 220, 220);
 }
 
+.esri-icon-compass:before {
+  color: rgb(214, 220, 220);
+}
 
-.contenedorBotones{
-    position: absolute;
-    border-radius: 15px;
-    background: rgb(122, 153, 172);
-    right:10px;
-    top: 50px;
-    width: 60px;
-    height: 330px;
-    opacity: 0.8;
-  }
+.barraPrincipal {
+  position: absolute;
+  background: rgb(122, 153, 172);
+  top: 0;
+  width: 100%;
+  height: 34px;
+  z-index: 2;
+  opacity: 0.9;
+}
 
+.contenedorBotones {
+  position: absolute;
+  border-radius: 15px;
+  background: rgb(122, 153, 172);
+  right: 10px;
+  top: 50px;
+  width: 60px;
+  height: 330px;
+  opacity: 0.9;
+}
 
 .botonOcio {
   display: block;
   position: absolute;
   z-index: 2;
   top: 20px;
-  right:1px;
+  right: 1px;
 }
 
 .botonTurismos {
@@ -91,20 +92,18 @@
   right: 1px;
 }
 
-
 .logoAyuntamiento {
   display: block;
   position: absolute;
   z-index: 2;
   top: 0px;
   left: 16px;
-  width:80px;
-  height:35px;
+  width: 80px;
+  height: 35px;
   color: rgb(255, 215, 0);
-
 }
 
-.tituloPrincipal{
+.tituloPrincipal {
   display: block;
   position: absolute;
   z-index: 2;
@@ -112,17 +111,40 @@
   left: 110px;
   font-size: 15px;
   color: rgb(40, 39, 38);
-
 }
 
-.contenedorleyenda {
 
-  position: absolute;
+.esri-widget__heading {
+  display: none;
+}
+
+.esri-legend__service{
+  background-color: rgb(122, 153, 172);
   border-radius: 15px;
-  background: rgb(122, 153, 172);
-  right:10px;
-  top: 450px;
-  width: 360px;
-  height: 330px;
-  opacity: 0.8;
+  opacity: 0.9;
+}
+
+.esri-legend__layer{
+  margin-left: -10px;
+  margin-top: -4px;
+}
+
+.esri-legend__layer-caption{
+  padding: 6px 30px;
+}
+
+.esri-legend__layer-caption{
+  display: none;
+}
+
+..esri-legend__layer-table{
+  margin-bottom: -6px;
+}
+
+.esri-widget--panel{
+  background-color: transparent;
+  width: 125px;
+  height:225px;
+  right:15px;
+  bottom: 0px;
 }
