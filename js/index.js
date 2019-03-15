@@ -59,34 +59,34 @@ require([
 
       cadena = ocioDOM.className;
 
-        memoriaExpresion = {
+      memoriaExpresion = {
 
-            logica: true,
-            expresion:""
-        }
+        logica: true,
+        expresion: ""
+      }
 
 
 
-        if (cadena.indexOf('activado') == -1) {
-          ocioDOM.classList.add("activado");
-          if (expresionGlobal == "") {
-            expresionGlobal = expresionGlobal + "Grupo = 'Ocio'";
+      if (cadena.indexOf('activado') == -1) {
+        ocioDOM.classList.add("activado");
+        if (expresionGlobal == "") {
+          expresionGlobal = expresionGlobal + "Grupo = 'Ocio'";
 
-            memoriaExpresion.logica= false;
-            memoriaExpresion.expresion = "Grupo = 'Ocio'";
-            diccionarioJSON.push(memoriaExpresion);
-          } else {
-            expresionGlobal = expresionGlobal + " and Grupo = 'Ocio'";
-          }
-          capa2D.definitionExpression = expresionGlobal;
-          capa3D.definitionExpression = expresionGlobal;
-
+          memoriaExpresion.logica = false;
+          memoriaExpresion.expresion = "Grupo = 'Ocio'";
+          diccionarioJSON.push(memoriaExpresion);
         } else {
-          ocioDOM.classList.remove("activado");
-          aux = expresionGlobal.replace("Grupo = 'Ocio'", "");
-          capa2D.definitionExpression = aux;
-          capa3D.definitionExpression = aux;
+          expresionGlobal = expresionGlobal + " and Grupo = 'Ocio'";
         }
+        capa2D.definitionExpression = expresionGlobal;
+        capa3D.definitionExpression = expresionGlobal;
+
+      } else {
+        ocioDOM.classList.remove("activado");
+        aux = expresionGlobal.replace("Grupo = 'Ocio'", "");
+        capa2D.definitionExpression = aux;
+        capa3D.definitionExpression = aux;
+      }
 
     };
 
@@ -121,6 +121,8 @@ require([
     var locateBtn = new Locate({
       view: view1
     });
+
+    // Add the locate widget to the top left corner of the view
     view1.ui.add(locateBtn, {
       position: "top-left"
     });
@@ -219,5 +221,10 @@ require([
 
   // vinculación de vistas
   synchronizeViews([view1, view2]);
+
+  var leyenda = new Legend({
+    view: view2
+  });
+  view2.ui.add(leyenda);
 
 });
