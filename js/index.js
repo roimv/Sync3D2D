@@ -4,6 +4,7 @@ require([
   "esri/views/MapView",
   "esri/views/SceneView",
   "esri/core/watchUtils",
+  "esri/widgets/Locate",
   "esri/widgets/Legend"
 
 ], function(
@@ -11,11 +12,12 @@ require([
   WebScene,
   MapView, SceneView,
   watchUtils,
+  Locate,
   Legend
 ) {
 
   var expresionGlobal = "";
-  var diccionarioJSON = {};
+  var diccionarioJSON = [];
 
   var webmap = new WebMap({
     portalItem: {
@@ -40,12 +42,12 @@ require([
     container: 'view2Div',
     map: webmap,
     constraints: {
-      // Disable zoom snapping to get the best synchonization
+      // Desactivado el zoom para mejorar la sincronización
       snapToZoom: false
     }
   });
 
-
+  // Cargar las vistas
   view1.when(function() {
     capa3D = webscene.findLayerById('1695d04df21-layer-1');
     capa2D = webmap.findLayerById('PuntosCalp_Grupos_9989');
@@ -57,25 +59,36 @@ require([
 
       cadena = ocioDOM.className;
 
-      if (cadena.indexOf('activado') == -1) {
-        ocioDOM.classList.add("activado");
-        if (expresionGlobal == "") {
-          expresionGlobal = expresionGlobal + "Grupo = 'Ocio'";
-        } else {
-          expresionGlobal = expresionGlobal + " and Grupo = 'Ocio'";
+        memoriaExpresion = {
+
+            logica: true,
+            expresion:""
         }
-        capa2D.definitionExpression = expresionGlobal;
-        capa3D.definitionExpression = expresionGlobal;
 
-      } else {
-        ocioDOM.classList.remove("activado");
-        aux = expresionGlobal.replace("Grupo = 'Ocio'", "");
-        capa2D.definitionExpression = aux;
-        capa3D.definitionExpression = aux;
-      }
+
+
+        if (cadena.indexOf('activado') == -1) {
+          ocioDOM.classList.add("activado");
+          if (expresionGlobal == "") {
+            expresionGlobal = expresionGlobal + "Grupo = 'Ocio'";
+
+            memoriaExpresion.logica= false;
+            memoriaExpresion.expresion = "Grupo = 'Ocio'";
+            diccionarioJSON.push(memoriaExpresion);
+          } else {
+            expresionGlobal = expresionGlobal + " and Grupo = 'Ocio'";
+          }
+          capa2D.definitionExpression = expresionGlobal;
+          capa3D.definitionExpression = expresionGlobal;
+
+        } else {
+          ocioDOM.classList.remove("activado");
+          aux = expresionGlobal.replace("Grupo = 'Ocio'", "");
+          capa2D.definitionExpression = aux;
+          capa3D.definitionExpression = aux;
+        }
+
     };
-
-
 
 
 
@@ -105,10 +118,12 @@ require([
       capa3D.definitionExpression = "Grupo = 'Restaurantes'";
     };
 
-    var leyenda = new Legend({
-      view: view2
+    var locateBtn = new Locate({
+      view: view1
     });
-    view2.ui.add(leyenda);
+    view1.ui.add(locateBtn, {
+      position: "top-left"
+    });
 
   });
 
@@ -202,7 +217,7 @@ require([
     }
   }
 
-  // bind the views
+  // vinculación de vistas
   synchronizeViews([view1, view2]);
 
 });

@@ -1,3 +1,4 @@
+
 .esri-ui-top-left {
   top: 38px;
   left: 0px;
@@ -28,6 +29,10 @@
 }
 
 .esri-icon-compass:before {
+  color: rgb(214, 220, 220);
+}
+
+.esri-icon-locate:before{
   color: rgb(214, 220, 220);
 }
 
