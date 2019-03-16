@@ -57,7 +57,7 @@ require([
     var ocioDOM = document.getElementById('botonAccionOcio');
     ocioDOM.onclick = function() {
 
-      cadena = ocioDOM.className;
+      cadenaClases = ocioDOM.className;
 
       memoriaExpresion = {
 
@@ -67,27 +67,42 @@ require([
 
 
 
-      if (cadena.indexOf('activado') == -1) {
+      if (cadenaClases.indexOf('activado') == -1) {
         ocioDOM.classList.add("activado");
         if (expresionGlobal == "") {
           expresionGlobal = expresionGlobal + "Grupo = 'Ocio'";
-
           memoriaExpresion.logica = false;
           memoriaExpresion.expresion = "Grupo = 'Ocio'";
           diccionarioJSON.push(memoriaExpresion);
         } else {
           expresionGlobal = expresionGlobal + " and Grupo = 'Ocio'";
+          memoriaExpresion.logica = false;
+          memoriaExpresion.expresion = "and Grupo = 'Ocio'";
+          diccionarioJSON.push(memoriaExpresion);
         }
         capa2D.definitionExpression = expresionGlobal;
         capa3D.definitionExpression = expresionGlobal;
 
       } else {
         ocioDOM.classList.remove("activado");
-        aux = expresionGlobal.replace("Grupo = 'Ocio'", "");
-        capa2D.definitionExpression = aux;
-        capa3D.definitionExpression = aux;
-      }
+        memoriaExpresion.logica = true;
+          if (memoriaExpresion.expresion = "Grupo = 'Ocio'";) {
+            diccionarioJSON.pop(memoriaExpresion);
+            aux = expresionGlobal.replace("Grupo = 'Ocio'", "");
+            capa2D.definitionExpression = aux;
+            capa3D.definitionExpression = aux;
 
+          } else {
+            memoriaExpresion.expresion = "and Grupo = 'Ocio'";
+            diccionarioJSON.pop(memoriaExpresion);
+            aux1 = expresionGlobal.replace("and Grupo = 'Ocio'", "");
+            capa2D.definitionExpression = aux1;
+            capa3D.definitionExpression = aux1;
+
+          }
+
+
+      }
     };
 
 
