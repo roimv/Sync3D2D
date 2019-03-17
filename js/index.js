@@ -16,7 +16,7 @@ require([
   Legend
 ) {
 
-  var expresionGlobal = "";
+  // var expresionGlobal = "";
   var diccionarioJSON = [];
 
   var webmap = new WebMap({
@@ -60,46 +60,57 @@ require([
       cadenaClases = ocioDOM.className;
 
       memoriaExpresion = {
-
         logica: true,
         expresion: ""
       }
 
-
-
       if (cadenaClases.indexOf('activado') == -1) {
         ocioDOM.classList.add("activado");
-        if (expresionGlobal == "") {
-          expresionGlobal = expresionGlobal + "Grupo = 'Ocio'";
+        console.log(ocioDOM.classList);
+        alert("activado Ocio");
+        // if (expresionGlobal == "") {
+        //
           memoriaExpresion.logica = false;
           memoriaExpresion.expresion = "Grupo = 'Ocio'";
-          diccionarioJSON.push(memoriaExpresion);
-        } else {
-          expresionGlobal = expresionGlobal + " and Grupo = 'Ocio'";
-          memoriaExpresion.logica = false;
-          memoriaExpresion.expresion = "and Grupo = 'Ocio'";
-          diccionarioJSON.push(memoriaExpresion);
-        }
-        capa2D.definitionExpression = expresionGlobal;
-        capa3D.definitionExpression = expresionGlobal;
+        // expresionGlobal = expresionGlobal + "Grupo = 'Ocio'";
+        // console.log(expresionGlobal);
+        //   diccionarioJSON.push(memoriaExpresion.expresion);
+        //
+        // } else {
+        //   memoriaExpresion.logica = false;
+        //   memoriaExpresion.expresion = "AND Grupo = 'Ocio'";
+        //   expresionGlobal = expresionGlobal + " AND Grupo = 'Ocio'";
+        //   diccionarioJSON.push(memoriaExpresion.expresion);
+        // }
+        capa2D.definitionExpression = memoriaExpresion.expresion;
+        capa3D.definitionExpression = memoriaExpresion.expresion;
 
       } else {
-        ocioDOM.classList.remove("activado");
-        memoriaExpresion.logica = true;
-          if (memoriaExpresion.expresion = "Grupo = 'Ocio'";) {
-            diccionarioJSON.pop(memoriaExpresion);
-            aux = expresionGlobal.replace("Grupo = 'Ocio'", "");
-            capa2D.definitionExpression = aux;
-            capa3D.definitionExpression = aux;
-
-          } else {
-            memoriaExpresion.expresion = "and Grupo = 'Ocio'";
-            diccionarioJSON.pop(memoriaExpresion);
-            aux1 = expresionGlobal.replace("and Grupo = 'Ocio'", "");
-            capa2D.definitionExpression = aux1;
-            capa3D.definitionExpression = aux1;
-
-          }
+        // if (expresionGlobal == "Grupo = 'Ocio'") {
+        //   memoriaExpresion.logica == false;
+        //   memoriaExpresion.expresion = "Grupo = 'Ocio'";
+        //   diccionarioJSON.pop(memoriaExpresion.expresion);
+          alert("DESactivado Ocio");
+          ocioDOM.classList.remove("activado");
+          console.log(ocioDOM.classList);
+          // aux = expresionGlobal.replace("Grupo = 'Ocio'", "");
+          // console.log(aux);
+          memoriaExpresion.logica = true;
+          memoriaExpresion.expresion = "";
+          capa2D.definitionExpression = memoriaExpresion.expresion;
+          capa3D.definitionExpression = memoriaExpresion.expresion;
+        //
+        //
+        // } else {
+        //   memoriaExpresion.logica == false;
+        //   memoriaExpresion.expresion = "AND Grupo = 'Ocio'";
+        //   diccionarioJSON.pop(memoriaExpresion.expresion);
+        //   aux1 = expresionGlobal.replace("AND Grupo = 'Ocio'", "");
+        //   ocioDOM.classList.remove("activado");
+        //   capa2D.definitionExpression = aux1;
+        //   capa3D.definitionExpression = aux1;
+        //
+        // }
 
 
       }
@@ -133,11 +144,10 @@ require([
       capa3D.definitionExpression = "Grupo = 'Restaurantes'";
     };
 
+
     var locateBtn = new Locate({
       view: view1
     });
-
-    // Add the locate widget to the top left corner of the view
     view1.ui.add(locateBtn, {
       position: "top-left"
     });
