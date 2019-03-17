@@ -52,96 +52,227 @@ require([
     capa3D = webscene.findLayerById('1695d04df21-layer-1');
     capa2D = webmap.findLayerById('PuntosCalp_Grupos_9989');
 
-
+    memoriaExpresion = {
+      logica: true,
+      expresion: ""
+    }
 
     var ocioDOM = document.getElementById('botonAccionOcio');
     ocioDOM.onclick = function() {
 
-      cadenaClases = ocioDOM.className;
+      cadenaClasesOcio = ocioDOM.className;
 
-      memoriaExpresion = {
-        logica: true,
-        expresion: ""
-      }
-
-      if (cadenaClases.indexOf('activado') == -1) {
+      if (cadenaClasesOcio.indexOf('activado') == -1) {
         ocioDOM.classList.add("activado");
         console.log(ocioDOM.classList);
-        alert("activado Ocio");
-        // if (expresionGlobal == "") {
-        //
+        if (memoriaExpresion.expresion == "") {
+
           memoriaExpresion.logica = false;
           memoriaExpresion.expresion = "Grupo = 'Ocio'";
-        // expresionGlobal = expresionGlobal + "Grupo = 'Ocio'";
-        // console.log(expresionGlobal);
-        //   diccionarioJSON.push(memoriaExpresion.expresion);
-        //
-        // } else {
-        //   memoriaExpresion.logica = false;
-        //   memoriaExpresion.expresion = "AND Grupo = 'Ocio'";
-        //   expresionGlobal = expresionGlobal + " AND Grupo = 'Ocio'";
-        //   diccionarioJSON.push(memoriaExpresion.expresion);
-        // }
-        capa2D.definitionExpression = memoriaExpresion.expresion;
-        capa3D.definitionExpression = memoriaExpresion.expresion;
+          diccionarioJSON.push("Grupo = 'Ocio'");
+        } else {
+          memoriaExpresion.logica = false;
+          memoriaExpresion.expresion = "AND Grupo = 'Ocio'";
+          diccionarioJSON.push("AND Grupo = 'Ocio'");
+        }
+        capa2D.definitionExpression = diccionarioJSON;
+        capa3D.definitionExpression = diccionarioJSON;
 
       } else {
-        // if (expresionGlobal == "Grupo = 'Ocio'") {
-        //   memoriaExpresion.logica == false;
-        //   memoriaExpresion.expresion = "Grupo = 'Ocio'";
-        //   diccionarioJSON.pop(memoriaExpresion.expresion);
-          alert("DESactivado Ocio");
-          ocioDOM.classList.remove("activado");
-          console.log(ocioDOM.classList);
-          // aux = expresionGlobal.replace("Grupo = 'Ocio'", "");
-          // console.log(aux);
-          memoriaExpresion.logica = true;
+        ocioDOM.classList.remove("activado");
+        console.log(ocioDOM.classList);
+        if (memoriaExpresion.expresion = "Grupo = 'Ocio'") {
+          memoriaExpresion.logica == true;
           memoriaExpresion.expresion = "";
-          capa2D.definitionExpression = memoriaExpresion.expresion;
-          capa3D.definitionExpression = memoriaExpresion.expresion;
-        //
-        //
-        // } else {
-        //   memoriaExpresion.logica == false;
-        //   memoriaExpresion.expresion = "AND Grupo = 'Ocio'";
-        //   diccionarioJSON.pop(memoriaExpresion.expresion);
-        //   aux1 = expresionGlobal.replace("AND Grupo = 'Ocio'", "");
-        //   ocioDOM.classList.remove("activado");
-        //   capa2D.definitionExpression = aux1;
-        //   capa3D.definitionExpression = aux1;
-        //
-        // }
-
-
+          diccionarioJSON.pop("Grupo = 'Ocio'");
+          capa2D.definitionExpression = diccionarioJSON;
+          capa3D.definitionExpression = diccionarioJSON;
+        } else {
+          memoriaExpresion.logica == false;
+          memoriaExpresion.expresion = "AND Grupo = 'Ocio'";
+          diccionarioJSON.pop("AND Grupo = 'Ocio'");
+          capa2D.definitionExpression = diccionarioJSON;
+          capa3D.definitionExpression = diccionarioJSON;
+        }
       }
     };
-
-
-
-
 
     var turismoDOM = document.getElementById('botonAccionTurismos');
     turismoDOM.onclick = function() {
-      capa2D.definitionExpression = "Grupo = 'Turismos'";
-      capa3D.definitionExpression = "Grupo = 'Turismos'";
+      cadenaClasesTurismo = turismoDOM.className;
+
+      if (cadenaClasesTurismo.indexOf('activado') == -1) {
+        turismoDOM.classList.add("activado");
+        console.log(turismoDOM.classList);
+        if (memoriaExpresion.expresion == "") {
+          memoriaExpresion.logica = false;
+          memoriaExpresion.expresion = "Grupo = 'Turismos'";
+          diccionarioJSON.push("Grupo = 'Turismos'");
+        } else {
+          memoriaExpresion.logica = false;
+          memoriaExpresion.expresion = "AND Grupo = 'Turismos'";
+          diccionarioJSON.push("AND Grupo = 'Turismos'");
+        }
+        capa2D.definitionExpression = diccionarioJSON;
+        capa3D.definitionExpression = diccionarioJSON;
+
+      } else {
+        turismoDOM.classList.remove("activado");
+        console.log(turismoDOM.classList);
+        if (memoriaExpresion.expresion = "Grupo = 'Turismos'") {
+          memoriaExpresion.logica == true;
+          memoriaExpresion.expresion = "";
+          diccionarioJSON.pop("Grupo = 'Turismos'");
+          capa2D.definitionExpression = diccionarioJSON;
+          capa3D.definitionExpression = diccionarioJSON;
+        } else {
+          memoriaExpresion.logica == false;
+          memoriaExpresion.expresion = "AND Grupo = 'Turismos'";
+          diccionarioJSON.pop("AND Grupo = 'Turismos'");
+          capa2D.definitionExpression = diccionarioJSON;
+          capa3D.definitionExpression = diccionarioJSON;
+
+        }
+
+
+      }
     };
+
+
+
+
+
+
+
 
     var serviciosDOM = document.getElementById('botonAccionServicios');
     serviciosDOM.onclick = function() {
-      capa2D.definitionExpression = "Grupo = 'Servicios'";
-      capa3D.definitionExpression = "Grupo = 'Servicios'";
+
+      cadenaClasesServicios = serviciosDOM.className;
+
+      if (cadenaClasesServicios.indexOf('activado') == -1) {
+        serviciosDOM.classList.add("activado");
+        console.log(serviciosDOM.classList);
+        if (memoriaExpresion.expresion == "") {
+          memoriaExpresion.logica = false;
+          memoriaExpresion.expresion = "Grupo = 'Servicios'";
+          diccionarioJSON.push("Grupo = 'Servicios'");
+        } else {
+          memoriaExpresion.logica = false;
+          memoriaExpresion.expresion = "AND Grupo = 'Servicios'";
+          diccionarioJSON.push("AND Grupo = 'Servicios'");
+        }
+        capa2D.definitionExpression = diccionarioJSON;
+        capa3D.definitionExpression = diccionarioJSON;
+
+      } else {
+        serviciosDOM.classList.remove("activado");
+        console.log(serviciosDOM.classList);
+        if (memoriaExpresion.expresion = "Grupo = 'Servicios'") {
+          memoriaExpresion.logica == true;
+          memoriaExpresion.expresion = "";
+          diccionarioJSON.pop("Grupo = 'Servicios'");
+          capa2D.definitionExpression = diccionarioJSON;
+          capa3D.definitionExpression = diccionarioJSON;
+        } else {
+          memoriaExpresion.logica == false;
+          memoriaExpresion.expresion = "AND Grupo = 'Servicios'";
+          diccionarioJSON.pop("AND Grupo = 'Servicios'");
+          capa2D.definitionExpression = diccionarioJSON;
+          capa3D.definitionExpression = diccionarioJSON;
+
+        }
+
+
+      }
+
     };
 
     var alojamientoDOM = document.getElementById('botonAccionAlojamiento');
     alojamientoDOM.onclick = function() {
-      capa2D.definitionExpression = "Grupo = 'Alojamiento'";
-      capa3D.definitionExpression = "Grupo = 'Alojamiento'";
+
+      cadenaClasesAlojamiento = alojamientoDOM.className;
+
+      if (cadenaClasesAlojamiento.indexOf('activado') == -1) {
+        alojamientoDOM.classList.add("activado");
+        console.log(alojamientoDOM.classList);
+        if (memoriaExpresion.expresion == "") {
+          memoriaExpresion.logica = false;
+          memoriaExpresion.expresion = "Grupo = 'Alojamiento'";
+          diccionarioJSON.push("Grupo = 'Alojamiento'");
+        } else {
+          memoriaExpresion.logica = false;
+          memoriaExpresion.expresion = "AND Grupo = 'Alojamiento'";
+          diccionarioJSON.push("AND Grupo = 'Alojamiento'");
+        }
+        capa2D.definitionExpression = diccionarioJSON;
+        capa3D.definitionExpression = diccionarioJSON;
+
+      } else {
+        alojamientoDOM.classList.remove("activado");
+        console.log(alojamientoDOM.classList);
+        if (memoriaExpresion.expresion = "Grupo = 'Alojamiento'") {
+          memoriaExpresion.logica == true;
+          memoriaExpresion.expresion = "";
+          diccionarioJSON.pop("Grupo = 'Alojamiento'");
+          capa2D.definitionExpression = diccionarioJSON;
+          capa3D.definitionExpression = diccionarioJSON;
+        } else {
+          memoriaExpresion.logica == false;
+          memoriaExpresion.expresion = "AND Grupo = 'Alojamiento'";
+          diccionarioJSON.pop("AND Grupo = 'Alojamiento'");
+          capa2D.definitionExpression = diccionarioJSON;
+          capa3D.definitionExpression = diccionarioJSON;
+
+        }
+
+
+      }
+
     };
 
     var restaurantesDOM = document.getElementById('botonAccionRestaurantes');
     restaurantesDOM.onclick = function() {
-      capa2D.definitionExpression = "Grupo = 'Restaurantes'";
-      capa3D.definitionExpression = "Grupo = 'Restaurantes'";
+
+
+      cadenaClasesRestaurantes = restaurantesDOM.className;
+
+      if (cadenaClasesRestaurantes.indexOf('activado') == -1) {
+        restaurantesDOM.classList.add("activado");
+        console.log(restaurantesDOM.classList);
+        if (memoriaExpresion.expresion == "") {
+          memoriaExpresion.logica = false;
+          memoriaExpresion.expresion = "Grupo = 'Restaurantes'";
+          diccionarioJSON.push("Grupo = 'Restaurantes'");
+        } else {
+          memoriaExpresion.logica = false;
+          memoriaExpresion.expresion = "AND Grupo = 'Restaurantes'";
+          diccionarioJSON.push("AND Grupo = 'Restaurantes'");
+        }
+        capa2D.definitionExpression = diccionarioJSON;
+        capa3D.definitionExpression = diccionarioJSON;
+
+      } else {
+        restaurantesDOM.classList.remove("activado");
+        console.log(alojamientoDOM.classList);
+        if (memoriaExpresion.expresion = "Grupo = 'Restaurantes'") {
+          memoriaExpresion.logica == true;
+          memoriaExpresion.expresion = "";
+          diccionarioJSON.pop("Grupo = 'Restaurantes'");
+          capa2D.definitionExpression = diccionarioJSON;
+          capa3D.definitionExpression = diccionarioJSON;
+        } else {
+          memoriaExpresion.logica == false;
+          memoriaExpresion.expresion = "AND Grupo = 'Restaurantes'";
+          diccionarioJSON.pop("AND Grupo = 'Restaurantes'");
+          capa2D.definitionExpression = diccionarioJSON;
+          capa3D.definitionExpression = diccionarioJSON;
+
+        }
+
+
+      }
+
     };
 
 
