@@ -36,6 +36,22 @@
   color: rgb(214, 220, 220);
 }
 
+
+.esri-ui-top-right{
+  top: 38px;
+  right: 455px;
+}
+
+.esri-icon-search:before{
+  color: rgb(214, 220, 220);
+}
+
+.esri-input{
+  background-color: rgb(235, 236, 236);
+}
+
+
+
 .barraPrincipal {
   position: absolute;
   background: rgb(122, 153, 172);

@@ -5,6 +5,7 @@ require([
   "esri/views/SceneView",
   "esri/core/watchUtils",
   "esri/widgets/Locate",
+  "esri/widgets/Search",
   "esri/widgets/Legend"
 
 ], function(
@@ -13,6 +14,7 @@ require([
   MapView, SceneView,
   watchUtils,
   Locate,
+  Search,
   Legend
 ) {
 
@@ -45,7 +47,11 @@ require([
       // Desactivado el zoom para mejorar la sincronización
       snapToZoom: false
     }
+
   });
+
+
+
 
   // Cargar las vistas
   view1.when(function() {
@@ -281,6 +287,16 @@ require([
     });
     view1.ui.add(locateBtn, {
       position: "top-left"
+    });
+
+
+    var searchWidget = new Search({
+      view: view1
+    });
+
+    view1.ui.add(searchWidget, {
+      position: "top-right",
+      index: 2
     });
 
   });
