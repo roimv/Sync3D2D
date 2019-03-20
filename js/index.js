@@ -6,7 +6,12 @@ require([
   "esri/core/watchUtils",
   "esri/widgets/Locate",
   "esri/widgets/Search",
-  "esri/widgets/Legend"
+  "esri/widgets/Legend",
+  "esri/Graphic",
+  "esri/layers/GraphicsLayer",
+  "esri/geometry/Point",
+  "esri/geometry/Polygon",
+  "esri/geometry/geometryEngine"
 
 ], function(
   WebMap,
@@ -15,7 +20,12 @@ require([
   watchUtils,
   Locate,
   Search,
-  Legend
+  Legend,
+  Graphic,
+  GraphicsLayer,
+  Point,
+  Polygon,
+  geometryEngine
 ) {
 
   // var expresionGlobal = "";
@@ -137,19 +147,9 @@ require([
           diccionarioJSON.pop("AND Grupo = 'Turismos'");
           capa2D.definitionExpression = diccionarioJSON;
           capa3D.definitionExpression = diccionarioJSON;
-
         }
-
-
       }
     };
-
-
-
-
-
-
-
 
     var serviciosDOM = document.getElementById('botonAccionServicios');
     serviciosDOM.onclick = function() {
@@ -186,12 +186,8 @@ require([
           diccionarioJSON.pop("AND Grupo = 'Servicios'");
           capa2D.definitionExpression = diccionarioJSON;
           capa3D.definitionExpression = diccionarioJSON;
-
         }
-
-
       }
-
     };
 
     var alojamientoDOM = document.getElementById('botonAccionAlojamiento');
@@ -229,12 +225,8 @@ require([
           diccionarioJSON.pop("AND Grupo = 'Alojamiento'");
           capa2D.definitionExpression = diccionarioJSON;
           capa3D.definitionExpression = diccionarioJSON;
-
         }
-
-
       }
-
     };
 
     var restaurantesDOM = document.getElementById('botonAccionRestaurantes');
@@ -273,12 +265,8 @@ require([
           diccionarioJSON.pop("AND Grupo = 'Restaurantes'");
           capa2D.definitionExpression = diccionarioJSON;
           capa3D.definitionExpression = diccionarioJSON;
-
         }
-
-
       }
-
     };
 
 
@@ -298,6 +286,41 @@ require([
       position: "top-right",
       index: 2
     });
+
+
+    //buffer del punto que incluya el usuario
+
+
+    view2.on("click", function(event) {
+      var point = new Graphic({
+        geometry: event.mapPoint,
+        symbol: {
+          type: "simple-marker",
+          color: "red",
+          size: 10
+        }
+
+      });
+    view2.graphics.add(point);
+    // clear.graphics();
+
+    // var buffer = geometryEngine.buffer(point, 700, "meters");
+
+    //   bufferGraphic = new Graphic({
+    //       geometry: buffer,
+    //       symbol: {
+    //         type: "simple-fill",
+    //         color: "rgba(215,0,0,.15)",
+    //         outline: {
+    //           color:  "red",
+    //           width: 2
+    //         }
+    //       }
+    //     });
+    //   .add(bufferGraphic);
+    //
+    });
+
 
   });
 
@@ -398,5 +421,7 @@ require([
     view: view2
   });
   view2.ui.add(leyenda);
+
+
 
 });
