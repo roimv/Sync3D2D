@@ -291,34 +291,43 @@ require([
     //buffer del punto que incluya el usuario
 
 
+
     view2.on("click", function(event) {
+      var bufferLayer = new GraphicsLayer();
+
+
       var point = new Graphic({
         geometry: event.mapPoint,
+        hasZ: false,
         symbol: {
           type: "simple-marker",
           color: "red",
           size: 10
         }
-
       });
-    view2.graphics.add(point);
-    // clear.graphics();
 
-    // var buffer = geometryEngine.buffer(point, 700, "meters");
+      bufferLayer.graphics.add(point);
 
-    //   bufferGraphic = new Graphic({
-    //       geometry: buffer,
-    //       symbol: {
-    //         type: "simple-fill",
-    //         color: "rgba(215,0,0,.15)",
-    //         outline: {
-    //           color:  "red",
-    //           width: 2
-    //         }
-    //       }
-    //     });
-    //   .add(bufferGraphic);
-    //
+
+      var buffer = geometryEngine.buffer(point, 700, "meters");
+
+      var bufferGraphic = new Graphic({
+        geometry: buffer,
+        symbol: {
+          type: "simple-fill",
+          color: "rgba(215,0,0,.15)",
+          outline: {
+            color: "red",
+            width: 2
+          }
+        }
+      });
+      bufferLayer.add(bufferGraphic);
+      view2.add(bufferLayer);
+      // view2.graphics.add(point);
+      // view2.graphics.add(bufferGraphic);
+
+
     });
 
 
