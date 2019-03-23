@@ -60,6 +60,8 @@ require([
 
   });
 
+  var bufferLayer = new GraphicsLayer();
+  view2.map.add(bufferLayer);
 
 
 
@@ -293,12 +295,10 @@ require([
 
 
     view2.on("click", function(event) {
-      var bufferLayer = new GraphicsLayer();
-
+      bufferLayer.removeAll()
 
       var point = new Graphic({
         geometry: event.mapPoint,
-        hasZ: false,
         symbol: {
           type: "simple-marker",
           color: "red",
@@ -308,25 +308,24 @@ require([
 
       bufferLayer.graphics.add(point);
 
+      var evtPoint = event.mapPoint
+      evtPoint.hasZ = false;
+      evtPoint.z = undefined;
 
-      var buffer = geometryEngine.buffer(point, 700, "meters");
-
-      var bufferGraphic = new Graphic({
-        geometry: buffer,
-        symbol: {
-          type: "simple-fill",
-          color: "rgba(215,0,0,.15)",
+      var buffer = geometryEngine.buffer(evtPoint, 700, "meters");
+      var polySym = {
+          type: "simple-fill", // autocasts as new SimpleFillSymbol()
+          color: [140, 140, 222, 0.5],
           outline: {
-            color: "red",
+            color: [0, 0, 0, 0.5],
             width: 2
           }
-        }
-      });
-      bufferLayer.add(bufferGraphic);
-      view2.add(bufferLayer);
-      // view2.graphics.add(point);
-      // view2.graphics.add(bufferGraphic);
+        };
 
+      bufferLayer.add(new Graphic({
+        geometry: buffer,
+        symbol: polySym
+      }));
 
     });
 
