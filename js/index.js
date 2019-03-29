@@ -11,7 +11,12 @@ require([
   "esri/layers/GraphicsLayer",
   "esri/geometry/Point",
   "esri/geometry/Polygon",
-  "esri/geometry/geometryEngine"
+  "esri/geometry/geometryEngine",
+  "esri/tasks/support/Query",
+  "esri/layers/FeatureLayer",
+  "esri/widgets/Sketch/SketchViewModel",
+  "esri/views/layers/support/FeatureFilter"
+
 
 ], function(
   WebMap,
@@ -25,7 +30,11 @@ require([
   GraphicsLayer,
   Point,
   Polygon,
-  geometryEngine
+  geometryEngine,
+  Query,
+  FeatureLayer,
+  SketchViewModel,
+  FeatureFilter
 ) {
 
   // var expresionGlobal = "";
@@ -62,6 +71,7 @@ require([
 
   var bufferLayer = new GraphicsLayer();
   view2.map.add(bufferLayer);
+
 
 
 
@@ -292,40 +302,76 @@ require([
 
     //buffer del punto que incluya el usuario
 
-
-
     view2.on("click", function(event) {
       bufferLayer.removeAll()
-
-      var point = new Graphic({
+      var punto = new Graphic({
         geometry: event.mapPoint,
         symbol: {
           type: "simple-marker",
-          color: "red",
-          size: 10
+          color: [240, 230, 140, ],
+          size: 8
         }
       });
 
-      bufferLayer.graphics.add(point);
+      bufferLayer.graphics.add(punto);
 
-      var evtPoint = event.mapPoint
-      evtPoint.hasZ = false;
-      evtPoint.z = undefined;
+      var evtPunto = event.mapPoint
+      evtPunto.hasZ = false;
+      evtPunto.z = undefined;
 
-      var buffer = geometryEngine.buffer(evtPoint, 700, "meters");
-      var polySym = {
-          type: "simple-fill", // autocasts as new SimpleFillSymbol()
-          color: [140, 140, 222, 0.5],
-          outline: {
-            color: [0, 0, 0, 0.5],
-            width: 2
-          }
-        };
+      var distanceSlider = document.getElementById("distance");
+      var bufferDistance = parseInt(distanceSlider.value);
+
+      var buffer = geometryEngine.buffer(evtPunto, [bufferDistance], "meters");
+      var circulo = {
+        type: "simple-fill",
+        color: [240, 230, 140, 0.4],
+        outline: {
+          color: [122, 153, 172, 0.2],
+          width: 2
+        }
+      };
 
       bufferLayer.add(new Graphic({
         geometry: buffer,
-        symbol: polySym
+        symbol: circulo
       }));
+
+      distanceSlider.addEventListener("input", function() {
+        document.getElementById("distance-value").innerText = distanceSlider.value;
+      });
+
+
+
+      var arrayAtributos = [];
+
+      var query = capa2D.createQuery();
+      query.geometry = buffer;
+      //query.spatialRelationship = "within";
+      query.returnGeometry = true;
+      query.outFields = [ "OBJECTID" ];
+      //query.outFields = ["*"];
+      capa2D.queryFeatures(query)
+        .then(function(response){
+          // console.log(response.features);
+
+          var listaFeatures = response.features;
+          for (elem in listaFeatures){
+            arrayAtributos.push(listaFeatures[elem].attributes);
+            
+          }
+          console.log(arrayAtributos);
+
+
+          // var filtro =  arrayAtributos.definitionExpression;
+          //   console.log(filtro)
+
+
+
+        });
+
+
+
 
     });
 

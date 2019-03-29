@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script src="https://js.arcgis.com/4.10/"></script>
+  <script src="https://js.arcgis.com/4.11/"></script>
 </head>
 
 <body>
@@ -46,6 +46,13 @@
     <div id="botonAccionRestaurantes" class="botonRestaurantes">
       <div class="w3-button w3-circle w3-khaki" aria-label="Restaurantes" title="Restaurantes"><i class="material-icons" style="font-size:24px;color:rgb(122, 153, 172);">restaurant</i></div>
     </div>
+  </div>
+  <div class="info">
+    <p class="infoTitulo">Introduce un punto en el mapa y los metros máximos</p>
+    <div class="contenedor-range">
+    <input id="distance" class="slider" type="range" min="100" max="600" step="100" value="300">
+    <span id="distance-value" class="textSlider">&nbsp;300</span>
+  </div>
   </div>
 
   <script src="js/index.js"></script>

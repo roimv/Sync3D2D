@@ -67,7 +67,7 @@
   border-radius: 15px;
   background: rgb(122, 153, 172);
   right: 10px;
-  top: 50px;
+  top: 160px;
   width: 60px;
   height: 330px;
   opacity: 0.9;
@@ -134,6 +134,11 @@
   color: rgb(40, 39, 38);
 }
 
+.contenedor-range{
+
+      margin-left: 28px;
+}
+
 
 .esri-widget__heading {
   display: none;
@@ -166,6 +171,42 @@
   background-color: transparent;
   width: 125px;
   height:225px;
-  right:15px;
+  right:10px;
   bottom: 0px;
+}
+
+
+.info{
+  position: absolute;
+  border-radius: 15px;
+  background: rgb(122, 153, 172);
+  right: 10px;
+  top: 50px;
+  width: 300px;
+  height: 75px;
+  opacity: 0.9;
+}
+
+.infoTitulo{
+  font-size: 12px;
+  font-family: "Avenir Next W00","Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-align: center;
+}
+
+.slider{
+  -webkit-appearance: none;
+  width: 75%;
+  height: 15px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.5;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+
+}
+
+.textSlider{
+  font-size: 12px;
+  font-family: "Avenir Next W00","Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-align: center;
 }
