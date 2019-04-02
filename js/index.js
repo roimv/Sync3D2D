@@ -37,7 +37,7 @@ require([
   FeatureFilter
 ) {
 
-  // var expresionGlobal = "";
+  
   var diccionarioJSON = [];
 
   var webmap = new WebMap({
@@ -343,28 +343,35 @@ require([
 
 
 
-      var arrayAtributos = [];
+      var listaFeatures = [];
+      var listaAtributos = [];
 
       var query = capa2D.createQuery();
       query.geometry = buffer;
-      //query.spatialRelationship = "within";
+      query.spatialRelationship = "contains";
       query.returnGeometry = true;
-      query.outFields = [ "OBJECTID" ];
-      //query.outFields = ["*"];
+      query.outFields = ["OBJECTID"];
       capa2D.queryFeatures(query)
-        .then(function(response){
-          // console.log(response.features);
+        .then(function(response) {
+          var listaFeatures = response.features; // Aquí tengo un array de elementos, con las features de cada elemento seleccionado en el mapa
+          console.log(listaFeatures);
 
-          var listaFeatures = response.features;
-          for (elem in listaFeatures){
-            arrayAtributos.push(listaFeatures[elem].attributes);
-            
-          }
-          console.log(arrayAtributos);
+          // var listaAtributos = listaFeatures.forEach(attributes);
+          // console.log(listaAtributos);
+          //
+          // listaAtributos = capa2D.definitionExpression;
 
 
-          // var filtro =  arrayAtributos.definitionExpression;
-          //   console.log(filtro)
+          // for (ele in listaFeatures) {
+          //
+          //   var found = false;
+          //   for (var i = 0; i < listaFeatures.length; i++) {
+          //     if (listaFeatures[i] === listaFeatures.attributes) {
+          //       found = true;
+          //       listaFeatures = capa2D.definitionExpression;
+          //     }
+          //   }
+          // }
 
 
 
