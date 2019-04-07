@@ -37,7 +37,7 @@ require([
   FeatureFilter
 ) {
 
-  
+
   var diccionarioJSON = [];
 
   var webmap = new WebMap({
@@ -354,30 +354,22 @@ require([
       capa2D.queryFeatures(query)
         .then(function(response) {
           var listaFeatures = response.features; // Aquí tengo un array de elementos, con las features de cada elemento seleccionado en el mapa
-          console.log(listaFeatures);
 
-          // var listaAtributos = listaFeatures.forEach(attributes);
-          // console.log(listaAtributos);
-          //
-          // listaAtributos = capa2D.definitionExpression;
+          for (ele of listaFeatures) {
+            var id = ele.attributes;
+            listaAtributos.push(id);
+
+            if (listaAtributos.indexOf(id) == -1) {
+              listaAtributos = capa2D.definitionExpression;
+            }
+          };
+          console.log(listaAtributos);
 
 
-          // for (ele in listaFeatures) {
-          //
-          //   var found = false;
-          //   for (var i = 0; i < listaFeatures.length; i++) {
-          //     if (listaFeatures[i] === listaFeatures.attributes) {
-          //       found = true;
-          //       listaFeatures = capa2D.definitionExpression;
-          //     }
-          //   }
-          // }
 
 
 
         });
-
-
 
 
     });
