@@ -344,7 +344,7 @@ require([
 
 
       var listaFeatures = [];
-      var listaAtributos = [];
+      var listaBuffer = [];
 
       var query = capa2D.createQuery();
       query.geometry = buffer;
@@ -354,126 +354,127 @@ require([
       capa2D.queryFeatures(query)
         .then(function(response) {
           var listaFeatures = response.features; // Aquí tengo un array de elementos, con las features de cada elemento seleccionado en el mapa
+          /* Restablecemos */
+          capa2D.definitionExpression = null;
+          var customExpression = "";
 
-          for (ele of listaFeatures) {
-            var id = ele.attributes;
-            listaAtributos.push(id);
-
-            if (listaAtributos.indexOf(id) == -1) {
-              listaAtributos = capa2D.definitionExpression;
-            }
+          for (let index = 0; index < listaFeatures.length; index++) {
+            var id = listaFeatures[index].attributes.OBJECTID;
+            listaBuffer.push(id);
           };
-          console.log(listaAtributos);
 
-
-
-
-
-        });
-
+          for (let index = 0; index < listaBuffer.length; index++) {
+            if (index == 0) {
+              customExpression = "OBJECTID = " + listaBuffer[index];
+            } else {
+              customExpression = customExpression + " or OBJECTID = " + listaBuffer[index];
+            }
+          }
+          console.log(listaFeatures);
+          capa2D.definitionExpression = customExpression;
+        
 
     });
-
-
   });
+});
 
 
 
-  var synchronizeView = function(view, others) {
-    others = Array.isArray(others) ? others : [others];
+var synchronizeView = function(view, others) {
+  others = Array.isArray(others) ? others : [others];
 
-    var viewpointWatchHandle;
-    var viewStationaryHandle;
-    var otherInteractHandlers;
-    var scheduleId;
+  var viewpointWatchHandle;
+  var viewStationaryHandle;
+  var otherInteractHandlers;
+  var scheduleId;
 
-    var clear = function() {
-      if (otherInteractHandlers) {
-        otherInteractHandlers.forEach(function(handle) {
-          handle.remove();
-        });
-      }
-      viewpointWatchHandle && viewpointWatchHandle.remove();
-      viewStationaryHandle && viewStationaryHandle.remove();
-      scheduleId && clearTimeout(scheduleId);
-      otherInteractHandlers = viewpointWatchHandle =
-        viewStationaryHandle = scheduleId = null;
-    };
-
-    var interactWatcher = view.watch('interacting,animation',
-      function(newValue) {
-        if (!newValue) {
-          return;
-        }
-        if (viewpointWatchHandle || scheduleId) {
-          return;
-        }
-
-        // start updating the other views at the next frame
-        scheduleId = setTimeout(function() {
-          scheduleId = null;
-          viewpointWatchHandle = view.watch('viewpoint',
-            function(newValue) {
-              others.forEach(function(otherView) {
-                otherView.viewpoint = newValue;
-              });
-            });
-        }, 0);
-
-        // stop as soon as another view starts interacting, like if the user starts panning
-        otherInteractHandlers = others.map(function(otherView) {
-          return watchUtils.watch(otherView,
-            'interacting,animation',
-            function(
-              value) {
-              if (value) {
-                clear();
-              }
-            });
-        });
-
-        // or stop when the view is stationary again
-        viewStationaryHandle = watchUtils.whenTrue(view,
-          'stationary', clear);
+  var clear = function() {
+    if (otherInteractHandlers) {
+      otherInteractHandlers.forEach(function(handle) {
+        handle.remove();
       });
-
-    return {
-      remove: function() {
-        this.remove = function() {};
-        clear();
-        interactWatcher.remove();
-      }
     }
+    viewpointWatchHandle && viewpointWatchHandle.remove();
+    viewStationaryHandle && viewStationaryHandle.remove();
+    scheduleId && clearTimeout(scheduleId);
+    otherInteractHandlers = viewpointWatchHandle =
+      viewStationaryHandle = scheduleId = null;
   };
 
-  /**
-   * utility method that synchronizes the viewpoints of multiple views
-   */
-  var synchronizeViews = function(views) {
-    var handles = views.map(function(view, idx, views) {
-      var others = views.concat();
-      others.splice(idx, 1);
-      return synchronizeView(view, others);
+  var interactWatcher = view.watch('interacting,animation',
+    function(newValue) {
+      if (!newValue) {
+        return;
+      }
+      if (viewpointWatchHandle || scheduleId) {
+        return;
+      }
+
+      // start updating the other views at the next frame
+      scheduleId = setTimeout(function() {
+        scheduleId = null;
+        viewpointWatchHandle = view.watch('viewpoint',
+          function(newValue) {
+            others.forEach(function(otherView) {
+              otherView.viewpoint = newValue;
+            });
+          });
+      }, 0);
+
+      // stop as soon as another view starts interacting, like if the user starts panning
+      otherInteractHandlers = others.map(function(otherView) {
+        return watchUtils.watch(otherView,
+          'interacting,animation',
+          function(
+            value) {
+            if (value) {
+              clear();
+            }
+          });
+      });
+
+      // or stop when the view is stationary again
+      viewStationaryHandle = watchUtils.whenTrue(view,
+        'stationary', clear);
     });
 
-    return {
-      remove: function() {
-        this.remove = function() {};
-        handles.forEach(function(h) {
-          h.remove();
-        });
-        handles = null;
-      }
+  return {
+    remove: function() {
+      this.remove = function() {};
+      clear();
+      interactWatcher.remove();
     }
   }
+};
 
-  // vinculación de vistas
-  synchronizeViews([view1, view2]);
-
-  var leyenda = new Legend({
-    view: view2
+/**
+ * utility method that synchronizes the viewpoints of multiple views
+ */
+var synchronizeViews = function(views) {
+  var handles = views.map(function(view, idx, views) {
+    var others = views.concat();
+    others.splice(idx, 1);
+    return synchronizeView(view, others);
   });
-  view2.ui.add(leyenda);
+
+  return {
+    remove: function() {
+      this.remove = function() {};
+      handles.forEach(function(h) {
+        h.remove();
+      });
+      handles = null;
+    }
+  }
+}
+
+// vinculación de vistas
+synchronizeViews([view1, view2]);
+
+var leyenda = new Legend({
+  view: view2
+});
+view2.ui.add(leyenda);
 
 
 
