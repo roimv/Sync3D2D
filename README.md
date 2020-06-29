@@ -1,1 +1,1 @@
-# Sync3D2D
+Proyecto realizado para Máster GIS Data Science
